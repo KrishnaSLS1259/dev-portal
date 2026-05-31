@@ -1,28 +1,178 @@
-/* apidocs.css */
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #fafafa;
+  background: #ffffff;
+  color: #333;
 }
 
-h2 {
-  margin-top: 40px;
-  color: #2a4d8f;
+html {
+  scroll-behavior: smooth;
 }
 
-pre {
-  background: #f4f4f4;
-  padding: 10px;
+/* Sticky header */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #004578;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#darkModeToggle {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
   border-radius: 4px;
-  font-size: 14px;
-  overflow-x: auto;
-}
-
-details {
-  margin-bottom: 15px;
-}
-
-summary {
-  font-weight: bold;
   cursor: pointer;
+  font-size: 18px;
+}
+
+/* Search bar */
+#searchBar {
+  display: block;
+  margin: 10px auto;
+  max-width: 400px;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+#searchBar:focus {
+  border-color: #0078d4;
+}
+
+/* Sidebar nav */
+nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  background: #f4f4f4;
+  padding: 20px;
+  overflow-y: auto;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+nav ul li {
+  margin: 15px 0;
+}
+nav ul li a {
+  text-decoration: none;
+  color: #004578;
+  font-weight: bold;
+}
+nav ul li a.active {
+  color: #0078d4;
+  text-decoration: underline;
+}
+
+/* Sections */
+section {
+  padding: 40px;
+  margin-left: 220px;
+}
+
+/* Code block + copy button */
+.code-block {
+  position: relative;
+  margin-bottom: 20px;
+}
+.copy-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 6px 10px;
+  font-size: 12px;
+  background: #004578;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.copy-btn:hover {
+  background: #0078d4;
+}
+
+/* Back to Top button */
+#backToTop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: #004578;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+#backToTop:hover {
+  background: #0078d4;
+}
+
+/* Portal button */
+.portal-button {
+  display: inline-block;
+  padding: 10px 16px;
+  background: #004578;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+}
+.portal-button:hover {
+  background: #0078d4;
+}
+
+/* Dark mode */
+body.dark-mode {
+  background: #1e1e1e;
+  color: #ddd;
+}
+body.dark-mode header {
+  background: #222;
+  color: #f0f0f0;
+}
+body.dark-mode nav {
+  background: #2c2c2c;
+}
+body.dark-mode nav ul li a {
+  color: #ddd;
+}
+body.dark-mode nav ul li a.active {
+  color: #66b2ff;
+}
+body.dark-mode #searchBar {
+  background: #2c2c2c;
+  color: #ddd;
+  border: 1px solid #444;
+}
+body.dark-mode .copy-btn {
+  background: #66b2ff;
+  color: #000;
+}
+body.dark-mode .copy-btn:hover {
+  background: #3399ff;
+  color: #fff;
+}
+body.dark-mode #backToTop {
+  background: #66b2ff;
+  color: #000;
+}
+body.dark-mode #backToTop:hover {
+  background: #3399ff;
+  color: #fff;
+}
+body.dark-mode .portal-button {
+  background: #66b2ff;
+  color: #000;
+}
+body.dark-mode .portal-button:hover {
+  background: #3399ff;
+  color: #fff;
 }
