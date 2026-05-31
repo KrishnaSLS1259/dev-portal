@@ -1,0 +1,556 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Employee Integration API",
+    "description": "API for managing employee data integration with Sodales",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Sodales Integration Team",
+      "email": "integration@company.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.company.com/v1",
+      "description": "Production server"
+    },
+    {
+      "url": "https://api-staging.company.com/v1",
+      "description": "Staging server"
+    }
+  ],
+  "paths": {
+    "/employees": {
+      "post": {
+        "summary": "Create a new employee",
+        "description": "Creates a new employee record with all required fields",
+        "operationId": "createEmployee",
+        "tags": ["Employees"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              },
+              "example": [
+			  {
+                "employeeName": "John Michael Smith",
+                "employeeId": "EMP-2024-001",
+                "employeeEmail": "john.smith@company.com",
+                "employeePhoneNumber": "+1-555-123-4567",
+                "position": "Senior Software Engineer",
+                "division": "Technology",
+                "department": "Software Development",
+                "unit": "Backend Services",
+                "firstName": "John",
+                "lastName": "Smith",
+                "city": "Toronto",
+                "postalCode": "M5V 3A8",
+                "dateOfBirth": "1985-06-15",
+                "address": "123 Main Street, Suite 400",
+                "province": "Ontario",
+                "homePhone": "+1-555-987-6543",
+                "gender": "Male",
+                "supervisorsName": "Sarah Johnson",
+                "supervisorsId": "EMP-2020-045",
+                "supervisorEmail": "sarah.johnson@company.com",
+                "supervisorsPhone": "+1-555-234-5678",
+                "sex": "Male",
+                "occupation": "Software Engineer",
+                "dateHired": "2022-03-01",
+                "jobTitle": "Senior Software Engineer",
+                "sickBankRefreshDate": "2026-01-01",
+                "typeOfWorkSchedule": "Full-Time",
+                "absenceBalanceHoursSickTime90": 45.5,
+                "absenceBalanceHoursSickTime100": 30.0,
+                "jobCode": "IT-DEV-003",
+                "disabilityManagerName": "Michael Brown",
+                "disabilityManagerId": "DM-2023-012"
+              }
+			  ]
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Employee created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmployeeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request - Missing required fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict - Employee ID already exists",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all employees",
+        "description": "Retrieves a list of all employees",
+        "operationId": "getAllEmployees",
+        "tags": ["Employees"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of records per page",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "maximum": 100
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{employeeId}": {
+      "get": {
+        "summary": "Get employee by ID",
+        "description": "Retrieves a single employee by their ID",
+        "operationId": "getEmployeeById",
+        "tags": ["Employees"],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "description": "Unique employee identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Employee not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update employee",
+        "description": "Updates an existing employee record",
+        "operationId": "updateEmployee",
+        "tags": ["Employees"],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "description": "Unique employee identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Employee updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete employee",
+        "description": "Deletes an employee record",
+        "operationId": "deleteEmployee",
+        "tags": ["Employees"],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "description": "Unique employee identifier",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Employee deleted successfully"
+          },
+          "404": {
+            "description": "Employee not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Employee": {
+        "type": "object",
+        "description": "Employee data model for Workday-Sodales integration",
+        "required": [
+          "employeeName",
+          "employeeId",
+          "employeeEmail",
+          "employeePhoneNumber",
+          "position",
+          "division",
+          "department",
+          "unit",
+          "firstName",
+          "lastName",
+          "city",
+          "postalCode",
+          "dateOfBirth",
+          "address",
+          "province",
+          "homePhone",
+          "gender",
+          "supervisorsName",
+          "supervisorsId",
+          "supervisorEmail",
+          "supervisorsPhone",
+          "sex",
+          "occupation",
+          "dateHired",
+          "jobTitle",
+          "sickBankRefreshDate",
+          "typeOfWorkSchedule",
+          "absenceBalanceHoursSickTime90",
+          "absenceBalanceHoursSickTime100",
+          "jobCode",
+          "disabilityManagerName",
+          "disabilityManagerId"
+        ],
+        "properties": {
+          "employeeName": {
+            "type": "string",
+            "description": "Employee Full name",
+            "example": "John Michael Smith"
+          },
+          "employeeId": {
+            "type": "string",
+            "description": "Unique Employee ID",
+            "example": "EMP-2024-001"
+          },
+          "employeeEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Employee email address",
+            "example": "john.smith@company.com"
+          },
+          "employeePhoneNumber": {
+            "type": "string",
+            "description": "Business phone number",
+            "example": "+1-555-123-4567"
+          },
+          "position": {
+            "type": "string",
+            "description": "Employee position",
+            "example": "Senior Software Engineer"
+          },
+          "division": {
+            "type": "string",
+            "description": "Division name",
+            "example": "Technology"
+          },
+          "department": {
+            "type": "string",
+            "description": "Department name",
+            "example": "Software Development"
+          },
+          "unit": {
+            "type": "string",
+            "description": "Organizational unit/Supervisory Organization",
+            "example": "Backend Services"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "Employee first name",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Employee last name",
+            "example": "Smith"
+          },
+          "city": {
+            "type": "string",
+            "description": "Home address city",
+            "example": "Toronto"
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Home postal code",
+            "example": "M5V 3A8"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "description": "Date of Birth (ISO 8601 format)",
+            "example": "1985-06-15"
+          },
+          "address": {
+            "type": "string",
+            "description": "Home address",
+            "example": "123 Main Street, Suite 400"
+          },
+          "province": {
+            "type": "string",
+            "description": "Home province/state",
+            "example": "Ontario"
+          },
+          "homePhone": {
+            "type": "string",
+            "description": "Primary home phone number",
+            "example": "+1-555-987-6543"
+          },
+          "gender": {
+            "type": "string",
+            "description": "Gender",
+            "enum": ["Male", "Female", "Non-Binary", "Other", "Prefer not to say"],
+            "example": "Male"
+          },
+          "supervisorsName": {
+            "type": "string",
+            "description": "Supervisor's Full Name",
+            "example": "Sarah Johnson"
+          },
+          "supervisorsId": {
+            "type": "string",
+            "description": "Supervisor's Employee ID",
+            "example": "EMP-2020-045"
+          },
+          "supervisorEmail": {
+            "type": "string",
+            "format": "email",
+            "description": "Supervisor's email address",
+            "example": "sarah.johnson@company.com"
+          },
+          "supervisorsPhone": {
+            "type": "string",
+            "description": "Supervisor's phone number",
+            "example": "+1-555-234-5678"
+          },
+          "sex": {
+            "type": "string",
+            "description": "Biological sex",
+            "enum": ["Male", "Female"],
+            "example": "Male"
+          },
+          "occupation": {
+            "type": "string",
+            "description": "Occupation/Job role",
+            "example": "Software Engineer"
+          },
+          "dateHired": {
+            "type": "string",
+            "format": "date",
+            "description": "Date hired (ISO 8601 format)",
+            "example": "2022-03-01"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "Job title",
+            "example": "Senior Software Engineer"
+          },
+          "sickBankRefreshDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Sick bank refresh date",
+            "example": "2026-01-01"
+          },
+          "typeOfWorkSchedule": {
+            "type": "string",
+            "description": "Type of work schedule",
+            "enum": ["Full-Time", "Part-Time", "Contract", "Temporary", "Casual"],
+            "example": "Full-Time"
+          },
+          "absenceBalanceHoursSickTime90": {
+            "type": "number",
+            "format": "float",
+            "description": "Absence balance hours for sick time at 90%",
+            "example": 45.5
+          },
+          "absenceBalanceHoursSickTime100": {
+            "type": "number",
+            "format": "float",
+            "description": "Absence balance hours for sick time at 100%",
+            "example": 30.0
+          },
+          "jobCode": {
+            "type": "string",
+            "description": "Job code identifier",
+            "example": "IT-DEV-003"
+          },
+          "disabilityManagerName": {
+            "type": "string",
+            "description": "Disability Manager name",
+            "example": "Michael Brown"
+          },
+          "disabilityManagerId": {
+            "type": "string",
+            "description": "Disability Manager ID",
+            "example": "DM-2023-012"
+          }
+        }
+      },
+      "EmployeeResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "message": {
+            "type": "string",
+            "example": "Employee created successfully"
+          },
+          "data": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2026-05-31T18:00:00Z"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "errorCode": {
+            "type": "string",
+            "example": "VALIDATION_ERROR"
+          },
+          "message": {
+            "type": "string",
+            "example": "Missing required fields"
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["employeeId is required", "employeeEmail is required"]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer-token": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employees",
+      "description": "Employee management operations for Sodales Integration"
+    }
+  ]
+}

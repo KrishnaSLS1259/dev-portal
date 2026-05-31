@@ -1,0 +1,28 @@
+/* apidocs.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #fafafa;
+}
+
+h2 {
+  margin-top: 40px;
+  color: #2a4d8f;
+}
+
+pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  overflow-x: auto;
+}
+
+details {
+  margin-bottom: 15px;
+}
+
+summary {
+  font-weight: bold;
+  cursor: pointer;
+}
