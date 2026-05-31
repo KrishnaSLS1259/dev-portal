@@ -139,9 +139,44 @@ section.highlight {
   animation: highlightFlash 2s ease-out;
 }
 @keyframes highlightFlash {
-  0%   { background-color: #fff3cd; }   /* pale yellow */
+  0%   { background-color: #fff3cd; }
   50%  { background-color: #ffeeba; }
   100% { background-color: transparent; }
+}
+
+/* Playground tweaks */
+#playground {
+  padding: 20px;
+  margin-left: 240px;
+  max-width: calc(100% - 260px);
+  box-sizing: border-box;
+}
+#swagger-ui {
+  margin-top: 0;
+  padding-top: 0;
+}
+.swagger-ui .opblock-summary-path,
+.swagger-ui .opblock-summary-method,
+.swagger-ui .opblock-summary-description {
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.swagger-ui .opblock {
+  margin: 10px 0;
+}
+
+/* Collapsible Playground toggle */
+.playground-toggle {
+  background: #004578;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.playground-toggle:hover {
+  background: #0078d4;
 }
 
 /* Responsive tweak */
