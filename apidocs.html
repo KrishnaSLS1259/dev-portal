@@ -3,31 +3,58 @@
 <head>
   <meta charset="UTF-8">
   <title>Sodales API Documentation for POST EMPLOYEES</title>
-  <link rel="stylesheet" href="apidocsstyle.css"/>
-  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+    <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h2 { margin-top: 40px; }
     pre { background: #f4f4f4; padding: 10px; border-radius: 4px; }
   </style>
 </head>
 <body>
+<header>
+  <h1>Sodales Employee API Documentation</h1>
+  <p>Integration Core Team • Sodalessolution</p>
+  <button id="darkModeToggle">🌙</button>
+  <input type="text" id="searchBar" placeholder="Search documentation...">
+</header>
+<nav>
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#endpoints">Endpoints</a></li>
+    <li><a href="#employee-schema">Data Models</a></li>
+    <li><a href="#error-handling">Error Handling</a></li>
+    <li><a href="#versioning">Versioning</a></li>
+    <li><a href="#playground">API Playground</a></li>
+    <li><a href="#support">Support</a></li>
+  </ul>
+</nav>
 
   <!-- Introduction -->
-  <h2 id="introduction">📘 Introduction</h2>
-  <p>Welcome to the API documentation for POST Employee Data to Sodales. Using this api your application can send employees data.</p>
+  <section id="introduction">
+  <h2>📘 Introduction</h2>
+  <p>Welcome to the API documentation for POST Employee Data to Sodales. Using this API your application can send employee data.</p>
+</section>
 
   <!-- Getting Started -->
-  <h2 id="getting-started">🚀 Getting Started</h2>
+<section id="getting-started">
+  <h2>🚀 Getting Started</h2>
   <p>Authentication: [Bearer Token]<br>
-  Token URL : https://tokenhostname/oauth2/api/v1/token<br>
+  Token URL: https://tokenhostname/oauth2/api/v1/token<br>
   Base URL: https://apihostname/http/{URI-parm}/employees</p>
+</section>
 
   <!-- Endpoints -->
-<h2 id='endpoints'>🔗 Endpoints</h2>
-<details>
-  <summary>POST /employees</summary>
-  <p>Retrieve user details</p>
-  <pre>
+<section id="endpoints">
+  <h2>🔗 Endpoints</h2>
+  <details>
+    <summary>POST /employees</summary>
+    <p>Create a new employee record</p>
+    <div class="code-block">
+      <button class="copy-btn">Copy</button>
+      <pre>
 POST /employees
 [
   {
@@ -65,48 +92,259 @@ POST /employees
     "disabilityManagerId": "DM-2023-012"
   }
 ]
-  </pre>
-</details>
+      </pre>
+    </div>
+  </details>
+</section>
 <!-- Data Models -->
-<h2 id='data-models'>📑 Data Models</h2>
-<p><strong>employee Object:</strong> id, name, email, createdAt</p>
+<section id="employee-schema">
+  <h2>📑 Employee Data Schema</h2>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    <thead style="background:#004578; color:white;">
+      <tr>
+        <th>Field</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>employeeName</td>
+        <td>string</td>
+        <td>Full name of the employee</td>
+        <td>John Michael Smith</td>
+      </tr>
+      <tr>
+        <td>employeeId</td>
+        <td>string</td>
+        <td>Unique employee identifier</td>
+        <td>EMP-2024-001</td>
+      </tr>
+      <tr>
+        <td>employeeEmail</td>
+        <td>string</td>
+        <td>Official email address</td>
+        <td>john.smith@company.com</td>
+      </tr>
+      <tr>
+        <td>employeePhoneNumber</td>
+        <td>string</td>
+        <td>Primary phone number</td>
+        <td>+1-555-123-4567</td>
+      </tr>
+      <tr>
+        <td>position</td>
+        <td>string</td>
+        <td>Job position</td>
+        <td>Senior Software Engineer</td>
+      </tr>
+      <tr>
+        <td>division</td>
+        <td>string</td>
+        <td>Division within the company</td>
+        <td>Technology</td>
+      </tr>
+      <tr>
+        <td>department</td>
+        <td>string</td>
+        <td>Department name</td>
+        <td>Software Development</td>
+      </tr>
+      <tr>
+        <td>unit</td>
+        <td>string</td>
+        <td>Unit or team</td>
+        <td>Backend Services</td>
+      </tr>
+      <tr>
+        <td>firstName</td>
+        <td>string</td>
+        <td>Employee’s first name</td>
+        <td>John</td>
+      </tr>
+      <tr>
+        <td>lastName</td>
+        <td>string</td>
+        <td>Employee’s last name</td>
+        <td>Smith</td>
+      </tr>
+      <tr>
+        <td>city</td>
+        <td>string</td>
+        <td>City of residence</td>
+        <td>Toronto</td>
+      </tr>
+      <tr>
+        <td>postalCode</td>
+        <td>string</td>
+        <td>Postal/ZIP code</td>
+        <td>M5V 3A8</td>
+      </tr>
+      <tr>
+        <td>dateOfBirth</td>
+        <td>date</td>
+        <td>Date of birth (YYYY-MM-DD)</td>
+        <td>1985-06-15</td>
+      </tr>
+      <tr>
+        <td>address</td>
+        <td>string</td>
+        <td>Street address</td>
+        <td>123 Main Street, Suite 400</td>
+      </tr>
+      <tr>
+        <td>province</td>
+        <td>string</td>
+        <td>Province/State</td>
+        <td>Ontario</td>
+      </tr>
+      <tr>
+        <td>homePhone</td>
+        <td>string</td>
+        <td>Home phone number</td>
+        <td>+1-555-987-6543</td>
+      </tr>
+      <tr>
+        <td>gender</td>
+        <td>string</td>
+        <td>Gender</td>
+        <td>Male</td>
+      </tr>
+      <tr>
+        <td>supervisorsName</td>
+        <td>string</td>
+        <td>Supervisor’s full name</td>
+        <td>Sarah Johnson</td>
+      </tr>
+      <tr>
+        <td>supervisorsId</td>
+        <td>string</td>
+        <td>Supervisor’s employee ID</td>
+        <td>EMP-2020-045</td>
+      </tr>
+      <tr>
+        <td>supervisorEmail</td>
+        <td>string</td>
+        <td>Supervisor’s email</td>
+        <td>sarah.johnson@company.com</td>
+      </tr>
+      <tr>
+        <td>supervisorsPhone</td>
+        <td>string</td>
+        <td>Supervisor’s phone number</td>
+        <td>+1-555-234-5678</td>
+      </tr>
+      <tr>
+        <td>occupation</td>
+        <td>string</td>
+        <td>Occupation title</td>
+        <td>Software Engineer</td>
+      </tr>
+      <tr>
+        <td>dateHired</td>
+        <td>date</td>
+        <td>Date of hire</td>
+        <td>2022-03-01</td>
+      </tr>
+      <tr>
+        <td>jobTitle</td>
+        <td>string</td>
+        <td>Job title</td>
+        <td>Senior Software Engineer</td>
+      </tr>
+      <tr>
+        <td>sickBankRefreshDate</td>
+        <td>date</td>
+        <td>Date when sick bank refreshes</td>
+        <td>2026-01-01</td>
+      </tr>
+      <tr>
+        <td>typeOfWorkSchedule</td>
+        <td>string</td>
+        <td>Work schedule type</td>
+        <td>Full-Time</td>
+      </tr>
+      <tr>
+        <td>absenceBalanceHoursSickTime90</td>
+        <td>number</td>
+        <td>Sick time balance (90%)</td>
+        <td>45.5</td>
+      </tr>
+      <tr>
+        <td>absenceBalanceHoursSickTime100</td>
+        <td>number</td>
+        <td>Sick time balance (100%)</td>
+        <td>30.0</td>
+      </tr>
+      <tr>
+        <td>jobCode</td>
+        <td>string</td>
+        <td>Job code identifier</td>
+        <td>IT-DEV-003</td>
+      </tr>
+      <tr>
+        <td>disabilityManagerName</td>
+        <td>string</td>
+        <td>Disability manager’s name</td>
+        <td>Michael Brown</td>
+      </tr>
+      <tr>
+        <td>disabilityManagerId</td>
+        <td>string</td>
+        <td>Disability manager’s ID</td>
+        <td>DM-2023-012</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
 <!-- Error Handling -->
-<h2 id='error-handling'>⚠️ Error Handling</h2>
-<p>400 – Bad Request<br>
-401 – Unauthorized<br>
-404 – Not Found<br>
-500 - Server Error<br>
-503 - Downstream Server Down </p>
+<section id="error-handling">
+  <h2>⚠️ Error Handling</h2>
+  <p>400 – Bad Request<br>
+  401 – Unauthorized<br>
+  404 – Not Found<br>
+  500 – Server Error<br>
+  503 – Downstream Server Down</p>
+</section>
 
   <!-- Versioning -->
-  <h2 id="versioning">Versioning</h2>
+ <section id="versioning">
+  <h2>Versioning</h2>
   <p>Current Version: v1.0<br>
   Deprecation Policy: 6 months support</p>
-
+</section>
   <!-- API Playground -->
-  <h2 id="playground">API Playground</h2>
+<section id="playground">
+  <h2>API Playground</h2>
   <div id="swagger-ui"></div>
-  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
-  <script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
-  <script src="swagger.js"></script>
-  <script>
-	window.onload = function() {
-	SwaggerUIBundle({
-    url: "employee.json",   // relative path to your JSON spec
-    dom_id: '#swagger-ui',
-    presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
-    layout: "BaseLayout"
-  });
-};
-
-  </script>
-
+</section>
   <!-- Support & Resources -->
-  <h2 id="support">📞 Support & Resources</h2>
+<section id="support">
+  <h2>📞 Support & Resources</h2>
   <p>Contact: support@example.com<br>
   SDKs: [Link]<br>
   FAQ: [Link]</p>
+</section>
+<footer>
+  <p>© 2026 Sodalessolution • Integration Core Team</p>
+  <p>🙏 Thanks for exploring the Sodales Employee API Documentation!</p>
+  <p>
+    <a href="https://sodalessolution.sharepoint.com/sites/IntegrationCoreTeam/SitePages/Sodales-Developer-Portal.aspx?source=https%3A%2F%2Fsodalessolution.sharepoint.com%2Fsites%2FIntegrationCoreTeam%2FSitePages%2FForms%2FByAuthor.aspx"
+       class="portal-button">
+      Developer Portal Home
+    </a>
+  </p>
+</footer>
+
+<!-- Back to Top Button -->
+<button id="backToTop" title="Go to top">⬆ Back to Top</button>
+
+<!-- Swagger UI scripts -->
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js"></script>
+<script src="https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js"></script>
+<script src="swagger.js"></script>
 
 </body>
 </html>
