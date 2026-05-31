@@ -5,7 +5,7 @@
   <title>Sodales API Documentation for POST EMPLOYEES</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- CSS -->
-  <link rel="stylesheet" href="apidocstyle.css">
+  <link rel="stylesheet" href="apidocsstyle.css">
     <style>
     body { font-family: Arial, sans-serif; margin: 20px; }
     h2 { margin-top: 40px; }
@@ -298,18 +298,47 @@ POST /employees
     </tbody>
   </table>
 </section>
-
 <!-- Error Handling -->
 <section id="error-handling">
   <h2>⚠️ Error Handling</h2>
-  <p>400 – Bad Request<br>
-  401 – Unauthorized<br>
-  404 – Not Found<br>
-  500 – Server Error<br>
-  503 – Downstream Server Down</p>
+  <table border="1" cellpadding="8" cellspacing="0" style="border-collapse:collapse; width:100%;">
+    <thead style="background:#004578; color:white;">
+      <tr>
+        <th>Status Code</th>
+        <th>Error</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>400</td>
+        <td>Bad Request</td>
+        <td>The request was invalid or missing required parameters.</td>
+      </tr>
+      <tr>
+        <td>401</td>
+        <td>Unauthorized</td>
+        <td>Authentication failed or user does not have permissions.</td>
+      </tr>
+      <tr>
+        <td>404</td>
+        <td>Not Found</td>
+        <td>The requested resource could not be found.</td>
+      </tr>
+      <tr>
+        <td>500</td>
+        <td>Server Error</td>
+        <td>An internal server error occurred while processing the request.</td>
+      </tr>
+      <tr>
+        <td>503</td>
+        <td>Downstream Server Down</td>
+        <td>The service is temporarily unavailable due to downstream issues.</td>
+      </tr>
+    </tbody>
+  </table>
 </section>
-
-  <!-- Versioning -->
+<!-- Versioning -->
  <section id="versioning">
   <h2>Versioning</h2>
   <p>Current Version: v1.0<br>
