@@ -7,6 +7,7 @@ body {
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;   /* offset for sticky header */
 }
 
 /* Sticky header */
@@ -19,15 +20,6 @@ header {
   padding: 20px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-#darkModeToggle {
-  margin-top: 10px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 18px;
 }
 
 /* Search bar */
@@ -48,15 +40,17 @@ nav {
   position: fixed;
   left: 0;
   top: 0;
-  width: 200px;
+  width: 220px;
   height: 100%;
   background: #f4f4f4;
   padding: 20px;
   overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 nav ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 nav ul li {
   margin: 15px 0;
@@ -65,22 +59,33 @@ nav ul li a {
   text-decoration: none;
   color: #004578;
   font-weight: bold;
+  display: block;
 }
 nav ul li a.active {
   color: #0078d4;
   text-decoration: underline;
 }
 
-/* Sections */
+/* Sections (main content) */
 section {
   padding: 40px;
-  margin-left: 220px;
+  margin-left: 240px;        /* clears sidebar */
+  max-width: calc(100% - 260px);
+  box-sizing: border-box;
 }
 
 /* Code block + copy button */
 .code-block {
   position: relative;
   margin-bottom: 20px;
+}
+pre {
+  background: #f4f4f4;
+  color: #000;
+  padding: 10px;
+  border-radius: 4px;
+  overflow-x: auto;
+  font-family: Consolas, Monaco, 'Courier New', monospace;
 }
 .copy-btn {
   position: absolute;
@@ -129,50 +134,61 @@ section {
   background: #0078d4;
 }
 
-/* Dark mode */
-body.dark-mode {
-  background: #1e1e1e;
-  color: #ddd;
+/* Highlight effect for target section */
+section.highlight {
+  animation: highlightFlash 2s ease-out;
 }
-body.dark-mode header {
-  background: #222;
-  color: #f0f0f0;
+@keyframes highlightFlash {
+  0%   { background-color: #fff3cd; }
+  50%  { background-color: #ffeeba; }
+  100% { background-color: transparent; }
 }
-body.dark-mode nav {
-  background: #2c2c2c;
+
+/* Playground tweaks */
+#playground {
+  padding: 20px;
+  margin-left: 240px;
+  max-width: calc(100% - 260px);
+  box-sizing: border-box;
 }
-body.dark-mode nav ul li a {
-  color: #ddd;
+#swagger-ui {
+  margin-top: 0;
+  padding-top: 0;
 }
-body.dark-mode nav ul li a.active {
-  color: #66b2ff;
+.swagger-ui .opblock-summary-path,
+.swagger-ui .opblock-summary-method,
+.swagger-ui .opblock-summary-description {
+  white-space: nowrap;
+  overflow-x: auto;
 }
-body.dark-mode #searchBar {
-  background: #2c2c2c;
-  color: #ddd;
-  border: 1px solid #444;
+.swagger-ui .opblock {
+  margin: 10px 0;
 }
-body.dark-mode .copy-btn {
-  background: #66b2ff;
-  color: #000;
+
+/* Collapsible Playground toggle */
+.playground-toggle {
+  background: #004578;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 10px;
 }
-body.dark-mode .copy-btn:hover {
-  background: #3399ff;
-  color: #fff;
+.playground-toggle:hover {
+  background: #0078d4;
 }
-body.dark-mode #backToTop {
-  background: #66b2ff;
-  color: #000;
-}
-body.dark-mode #backToTop:hover {
-  background: #3399ff;
-  color: #fff;
-}
-body.dark-mode .portal-button {
-  background: #66b2ff;
-  color: #000;
-}
-body.dark-mode .portal-button:hover {
-  background: #3399ff;
-  color: #fff;
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  nav {
+    position: relative;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+  section {
+    margin-left: 0;
+    max-width: 100%;
+  }
 }

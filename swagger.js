@@ -1,36 +1,10 @@
 window.onload = function() {
   // Swagger UI setup
   const ui = SwaggerUIBundle({
-    url: "employee.json", // path to your OpenAPI spec file
+    url: "employee.json",
     dom_id: '#swagger-ui',
     presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
     layout: "BaseLayout"
-  });
-
-  // Branding in Swagger topbar
-  const topbar = document.querySelector(".swagger-ui .topbar-wrapper");
-  if (topbar) {
-    topbar.innerHTML = `
-      <img src="logo.png" alt="Company Logo" style="height:40px; width:auto; margin-right:10px;">
-      <span style="color:white; font-weight:bold; font-size:18px;">Sodales Employee API Docs</span>
-    `;
-  }
-
-  // Dark mode toggle
-  const toggleButton = document.getElementById("darkModeToggle");
-  if (localStorage.getItem("darkMode") === "enabled") {
-    document.body.classList.add("dark-mode");
-    toggleButton.textContent = "☀️";
-  }
-  toggleButton.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-      localStorage.setItem("darkMode", "enabled");
-      toggleButton.textContent = "☀️";
-    } else {
-      localStorage.setItem("darkMode", "disabled");
-      toggleButton.textContent = "🌙";
-    }
   });
 
   // Back to Top button
@@ -63,7 +37,7 @@ window.onload = function() {
   window.addEventListener("scroll", () => {
     let current = "";
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 80;
+      const sectionTop = section.offsetTop - 100;
       const sectionHeight = section.clientHeight;
       if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
         current = section.getAttribute("id");
@@ -90,4 +64,35 @@ window.onload = function() {
       }
     });
   });
+
+  // Highlight target section when clicked in sidebar
+  document.querySelectorAll("nav ul li a").forEach(link => {
+    link.addEventListener("click", function() {
+      const targetId = this.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        document.querySelectorAll("section").forEach(sec => sec.classList.remove("highlight"));
+        targetSection.classList.add("highlight");
+        setTimeout(() => targetSection.classList.remove("highlight"), 2000);
+      }
+    });
+  });
+
+  // Playground collapsible toggle
+  const playgroundSection = document.getElementById("playground");
+  if (playgroundSection) {
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Toggle Playground";
+    toggleBtn.className = "playground-toggle";
+    playgroundSection.insertBefore(toggleBtn, playgroundSection.firstChild);
+
+    toggleBtn.addEventListener("click", () => {
+      const swaggerUI = document.getElementById("swagger-ui");
+      if (swaggerUI.style.display === "none") {
+        swaggerUI.style.display = "block";
+      } else {
+        swaggerUI.style.display = "none";
+      }
+    });
+  }
 };
