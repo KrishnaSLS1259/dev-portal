@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sodales Developer Portal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>Sodales Developer Portal</h1>
+</header>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>APIs</h2>
+        <ul>
+            <li><a href="#">POST Employee</a></li>
+            <li><a href="#">GET Employee</a></li>
+            <li><a href="#">PUT Employee</a></li>
+            <li><a href="#">DELETE Employee</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+
+        <section class="api-section">
+            <h2>POST Employee API</h2>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span>/api/employees</span>
+            </div>
+
+            <h3>Description</h3>
+            <p>Create a new employee record in the system.</p>
+
+            <h3>Request Body</h3>
+            <pre class="code-block">
+{
+  "firstName": "Krishna",
+  "lastName": "Kumar",
+  "email": "krishna@example.com",
+  "department": "IT"
+}
+            </pre>
+
+            <h3>Response</h3>
+            <pre class="code-block">
+{
+  "status": "success",
+  "message": "Employee created successfully"
+}
+            </pre>
+
+        </section>
+
+    </main>
+</div>
+
+<footer class="footer">
+    <p>© 2026 Sodales Solutions</p>
+</footer>
+
+</body>
+</html>
