@@ -191,11 +191,19 @@ section.highlight {
 .swagger-ui .opblock-summary-path,
 .swagger-ui .opblock-summary-method,
 .swagger-ui .opblock-summary-description {
-  white-space: nowrap;
-  overflow-x: auto;
+  white-space: nowrap;       /* prevent wrapping */
+  overflow-x: auto;          /* allow horizontal scroll */
+  text-overflow: ellipsis;   /* optional truncation */
+}
+.swagger-ui .opblock-summary {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
 }
 .swagger-ui .opblock {
   margin: 6px 0;
+  padding: 6px;
 }
 
 /* Collapsible Playground toggle */
