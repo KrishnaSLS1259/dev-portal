@@ -7,47 +7,50 @@ body {
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 100px;   /* offset for sticky header */
+  scroll-padding-top: 80px;   /* matches header height */
 }
 
 /* Sticky header */
 header {
-  position: fixed;      /* fixed header */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
   background: #004578;
   color: white;
-  padding: 20px;
+  padding: 15px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  height: 80px;         /* define header height */
+  height: 80px;
   box-sizing: border-box;
 }
 
-/* Search bar */
-#searchBar {
-  display: block;
-  margin: 10px auto;
-  max-width: 400px;
-  padding: 8px;
+/* Theme toggle button */
+#themeToggle {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  cursor: pointer;
 }
-#searchBar:focus {
-  border-color: #0078d4;
+#themeToggle:hover {
+  background: #333333;
 }
 
 /* Sidebar nav */
 nav {
   position: fixed;
-  top: 80px;            /* start below header */
+  top: 80px;                 /* sits below header */
   left: 0;
-  width: 220px;
-  height: calc(100% - 80px); /* fit under header */
+  width: 200px;
+  height: calc(100% - 80px);
   background: #f4f4f4;
-  padding: 20px;
+  padding: 15px;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
@@ -57,7 +60,7 @@ nav ul {
   margin: 0;
 }
 nav ul li {
-  margin: 15px 0;
+  margin: 8px 0;
 }
 nav ul li a {
   text-decoration: none;
@@ -72,32 +75,52 @@ nav ul li a.active {
 
 /* Sections (main content) */
 section {
-  padding: 40px;
-  margin-left: 240px;   /* clear sidebar horizontally */
-  margin-top: 100px;    /* clear header vertically */
-  max-width: calc(100% - 260px);
+  padding: 20px;
+  margin-left: 220px;        /* clears sidebar horizontally */
+  margin-top: 20px;          /* small vertical gap */
+  max-width: calc(100% - 240px);
   box-sizing: border-box;
-  scroll-margin-top: 100px; /* ensures headings visible when clicked */
+  scroll-margin-top: 90px;   /* ensures headings visible under header */
+}
+
+/* Compact tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 14px;
+}
+table th, table td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: left;
+}
+table th {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+table tr:nth-child(even) {
+  background: #fafafa;
 }
 
 /* Code block + copy button */
 .code-block {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 pre {
   background: #f4f4f4;
   color: #000;
-  padding: 10px;
+  padding: 8px;
   border-radius: 4px;
   overflow-x: auto;
   font-family: Consolas, Monaco, 'Courier New', monospace;
 }
 .copy-btn {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  padding: 6px 10px;
+  top: 6px;
+  right: 6px;
+  padding: 5px 8px;
   font-size: 12px;
   background: #004578;
   color: white;
@@ -113,11 +136,11 @@ pre {
 #backToTop {
   display: none;
   position: fixed;
-  bottom: 30px;
-  right: 30px;
+  bottom: 20px;
+  right: 20px;
   background: #004578;
   color: white;
-  padding: 12px 18px;
+  padding: 10px 14px;
   border-radius: 6px;
   border: none;
   cursor: pointer;
@@ -129,7 +152,7 @@ pre {
 /* Portal button */
 .portal-button {
   display: inline-block;
-  padding: 10px 16px;
+  padding: 8px 12px;
   background: #004578;
   color: white;
   text-decoration: none;
@@ -142,7 +165,7 @@ pre {
 
 /* Highlight effect for target section */
 section.highlight {
-  animation: highlightFlash 2s ease-out;
+  animation: highlightFlash 1.5s ease-out;
 }
 @keyframes highlightFlash {
   0%   { background-color: #fff3cd; }
@@ -152,14 +175,18 @@ section.highlight {
 
 /* Playground tweaks */
 #playground {
-  padding: 20px;
-  margin-left: 240px;
-  max-width: calc(100% - 260px);
+  padding: 15px;
+  margin-left: 220px;
+  margin-top: 20px;
+  max-width: calc(100% - 240px);
   box-sizing: border-box;
 }
 #swagger-ui {
-  margin-top: 0;
-  padding-top: 0;
+  margin: 0;
+  padding: 0;
+}
+.swagger-ui {
+  text-align: left;          /* align content left */
 }
 .swagger-ui .opblock-summary-path,
 .swagger-ui .opblock-summary-method,
@@ -168,42 +195,84 @@ section.highlight {
   overflow-x: auto;
 }
 .swagger-ui .opblock {
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
 /* Collapsible Playground toggle */
 .playground-toggle {
   background: #004578;
   color: white;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 .playground-toggle:hover {
   background: #0078d4;
 }
 
-/* Sidebar nav */
-nav {
-  position: fixed;
-  left: 0;
-  top: 80px;              /* push sidebar down below header */
-  width: 220px;
-  height: calc(100% - 80px); /* adjust height so it fits under header */
-  background: #f4f4f4;
-  padding: 20px;
-  overflow-y: auto;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+/* Dark mode styles */
+body.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+body.dark-mode header {
+  background: #000000;
+  color: #ffffff;
+}
+body.dark-mode nav {
+  background: #1e1e1e;
+}
+body.dark-mode nav ul li a {
+  color: #e0e0e0;
+}
+body.dark-mode nav ul li a.active {
+  color: #ffcc00;
+}
+body.dark-mode pre {
+  background: #1e1e1e;
+  color: #f5f5f5;
+}
+body.dark-mode table th {
+  background: #333333;
+}
+body.dark-mode table td {
+  border-color: #555;
+}
+body.dark-mode .copy-btn,
+body.dark-mode .portal-button,
+body.dark-mode #backToTop,
+body.dark-mode .playground-toggle,
+body.dark-mode #themeToggle {
+  background: #000000;
+  color: #ffffff;
+}
+body.dark-mode .copy-btn:hover,
+body.dark-mode .portal-button:hover,
+body.dark-mode #backToTop:hover,
+body.dark-mode .playground-toggle:hover,
+body.dark-mode #themeToggle:hover {
+  background: #333333;
 }
 
-/* Sections (main content) */
-section {
-  padding: 40px;
-  margin-left: 240px;        /* clears sidebar horizontally */
-  margin-top: 100px;         /* clears sticky header vertically */
-  max-width: calc(100% - 260px);
-  box-sizing: border-box;
+/* Responsive tweak */
+@media (max-width: 768px) {
+  header {
+    height: auto;
+    padding: 12px;
+  }
+  nav {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    box-shadow: none;
+  }
+  section, #playground {
+    margin-left: 0;
+    margin-top: 15px;
+    max-width: 100%;
+    scroll-margin-top: 80px;
+  }
 }
-
