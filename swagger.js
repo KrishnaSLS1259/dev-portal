@@ -1,278 +1,98 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #ffffff;
-  color: #333;
-}
+window.onload = function() {
+  // Swagger UI setup
+  const ui = SwaggerUIBundle({
+    url: "employee.json",
+    dom_id: '#swagger-ui',
+    presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+    layout: "BaseLayout"
+  });
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;   /* matches header height */
-}
+  // Back to Top button
+  const backToTopBtn = document.getElementById("backToTop");
+  window.addEventListener("scroll", () => {
+    if (document.documentElement.scrollTop > 200) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  });
+  backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-/* Sticky header */
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  background: #004578;
-  color: white;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  height: 80px;
-  box-sizing: border-box;
-}
+  // Copy code buttons
+  document.querySelectorAll('.copy-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const code = button.nextElementSibling.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        button.textContent = "Copied!";
+        setTimeout(() => button.textContent = "Copy", 2000);
+      });
+    });
+  });
 
-/* Theme toggle button */
-#themeToggle {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: #000000;
-  color: #ffffff;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-#themeToggle:hover {
-  background: #333333;
-}
+  // Scrollspy effect
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav ul li a");
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 100;
+      const sectionHeight = section.clientHeight;
+      if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+        current = section.getAttribute("id");
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove("active");
+      if (link.getAttribute("href").includes(current)) {
+        link.classList.add("active");
+      }
+    });
+  });
 
-/* Sidebar nav */
-nav {
-  position: fixed;
-  top: 80px;                 /* sits below header */
-  left: 0;
-  width: 200px;
-  height: calc(100% - 80px);
-  background: #f4f4f4;
-  padding: 15px;
-  overflow-y: auto;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-nav ul li {
-  margin: 8px 0;
-}
-nav ul li a {
-  text-decoration: none;
-  color: #004578;
-  font-weight: bold;
-  display: block;
-}
-nav ul li a.active {
-  color: #0078d4;
-  text-decoration: underline;
-}
+  // Search bar functionality
+  const searchBar = document.getElementById("searchBar");
+  searchBar.addEventListener("keyup", function(e) {
+    const query = e.target.value.toLowerCase();
+    sections.forEach(section => {
+      const text = section.innerText.toLowerCase();
+      if (text.includes(query)) {
+        section.style.display = "block";
+      } else {
+        section.style.display = query ? "none" : "block";
+      }
+    });
+  });
 
-/* Sections (main content) */
-section {
-  padding: 20px;
-  margin-left: 220px;        /* clears sidebar horizontally */
-  margin-top: 20px;          /* small vertical gap */
-  max-width: calc(100% - 240px);
-  box-sizing: border-box;
-  scroll-margin-top: 90px;   /* ensures headings visible under header */
-}
+  // Highlight target section when clicked in sidebar
+  document.querySelectorAll("nav ul li a").forEach(link => {
+    link.addEventListener("click", function() {
+      const targetId = this.getAttribute("href").substring(1);
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        document.querySelectorAll("section").forEach(sec => sec.classList.remove("highlight"));
+        targetSection.classList.add("highlight");
+        setTimeout(() => targetSection.classList.remove("highlight"), 2000);
+      }
+    });
+  });
 
-/* Compact tables */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 15px 0;
-  font-size: 14px;
-}
-table th, table td {
-  border: 1px solid #ccc;
-  padding: 6px 8px;
-  text-align: left;
-}
-table th {
-  background: #f0f0f0;
-  font-weight: bold;
-}
-table tr:nth-child(even) {
-  background: #fafafa;
-}
+  // Playground collapsible toggle
+  const playgroundSection = document.getElementById("playground");
+  if (playgroundSection) {
+    const toggleBtn = document.createElement("button");
+    toggleBtn.textContent = "Toggle Playground";
+    toggleBtn.className = "playground-toggle";
+    playgroundSection.insertBefore(toggleBtn, playgroundSection.firstChild);
 
-/* Code block + copy button */
-.code-block {
-  position: relative;
-  margin-bottom: 15px;
-}
-pre {
-  background: #f4f4f4;
-  color: #000;
-  padding: 8px;
-  border-radius: 4px;
-  overflow-x: auto;
-  font-family: Consolas, Monaco, 'Courier New', monospace;
-}
-.copy-btn {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  padding: 5px 8px;
-  font-size: 12px;
-  background: #004578;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-.copy-btn:hover {
-  background: #0078d4;
-}
-
-/* Back to Top button */
-#backToTop {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #004578;
-  color: white;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-#backToTop:hover {
-  background: #0078d4;
-}
-
-/* Portal button */
-.portal-button {
-  display: inline-block;
-  padding: 8px 12px;
-  background: #004578;
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-}
-.portal-button:hover {
-  background: #0078d4;
-}
-
-/* Highlight effect for target section */
-section.highlight {
-  animation: highlightFlash 1.5s ease-out;
-}
-@keyframes highlightFlash {
-  0%   { background-color: #fff3cd; }
-  50%  { background-color: #ffeeba; }
-  100% { background-color: transparent; }
-}
-
-/* Playground tweaks */
-#playground {
-  padding: 15px;
-  margin-left: 220px;
-  margin-top: 20px;
-  max-width: calc(100% - 240px);
-  box-sizing: border-box;
-}
-#swagger-ui {
-  margin: 0;
-  padding: 0;
-}
-.swagger-ui {
-  text-align: left;          /* align content left */
-}
-.swagger-ui .opblock-summary-path,
-.swagger-ui .opblock-summary-method,
-.swagger-ui .opblock-summary-description {
-  white-space: nowrap;
-  overflow-x: auto;
-}
-.swagger-ui .opblock {
-  margin: 6px 0;
-}
-
-/* Collapsible Playground toggle */
-.playground-toggle {
-  background: #004578;
-  color: white;
-  padding: 6px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-bottom: 8px;
-}
-.playground-toggle:hover {
-  background: #0078d4;
-}
-
-/* Dark mode styles */
-body.dark-mode {
-  background: #121212;
-  color: #e0e0e0;
-}
-body.dark-mode header {
-  background: #000000;
-  color: #ffffff;
-}
-body.dark-mode nav {
-  background: #1e1e1e;
-}
-body.dark-mode nav ul li a {
-  color: #e0e0e0;
-}
-body.dark-mode nav ul li a.active {
-  color: #ffcc00;
-}
-body.dark-mode pre {
-  background: #1e1e1e;
-  color: #f5f5f5;
-}
-body.dark-mode table th {
-  background: #333333;
-}
-body.dark-mode table td {
-  border-color: #555;
-}
-body.dark-mode .copy-btn,
-body.dark-mode .portal-button,
-body.dark-mode #backToTop,
-body.dark-mode .playground-toggle,
-body.dark-mode #themeToggle {
-  background: #000000;
-  color: #ffffff;
-}
-body.dark-mode .copy-btn:hover,
-body.dark-mode .portal-button:hover,
-body.dark-mode #backToTop:hover,
-body.dark-mode .playground-toggle:hover,
-body.dark-mode #themeToggle:hover {
-  background: #333333;
-}
-
-/* Responsive tweak */
-@media (max-width: 768px) {
-  header {
-    height: auto;
-    padding: 12px;
+    toggleBtn.addEventListener("click", () => {
+      const swaggerUI = document.getElementById("swagger-ui");
+      if (swaggerUI.style.display === "none") {
+        swaggerUI.style.display = "block";
+      } else {
+        swaggerUI.style.display = "none";
+      }
+    });
   }
-  nav {
-    position: relative;
-    top: 0;
-    width: 100%;
-    height: auto;
-    box-shadow: none;
-  }
-  section, #playground {
-    margin-left: 0;
-    margin-top: 15px;
-    max-width: 100%;
-    scroll-margin-top: 80px;
-  }
-}
+};
