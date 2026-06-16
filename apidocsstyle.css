@@ -176,17 +176,21 @@ section.highlight {
 /* Playground tweaks */
 #playground {
   padding: 15px;
-  margin-left: 220px;
+  margin-left: 220px;        /* align with other sections */
   margin-top: 20px;
   max-width: calc(100% - 240px);
   box-sizing: border-box;
 }
 #swagger-ui {
-  margin: 0;
+  display: block;
+  margin: 0;                 /* remove auto-centering */
   padding: 0;
+  text-align: left;
+  width: 100%;               /* full width of content area */
+  min-height: 400px;
 }
 .swagger-ui {
-  text-align: left;          /* align content left */
+  text-align: left;
 }
 .swagger-ui .opblock-summary-path,
 .swagger-ui .opblock-summary-method,
